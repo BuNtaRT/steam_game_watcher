@@ -1,0 +1,19 @@
+{
+  "name": "steam-price-watcher",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "node dist/bot.js",
+    "build": "tsc",
+    "dev": "nodemon"
+  },
+  "dependencies": {
+    "@types/node": "^22.5.5",
+    "dotenv": "^16.4.5",
+    "nodemon": "^3.1.4",
+    "telegraf": "^4.16.3",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.6.2"
+  }
+}
