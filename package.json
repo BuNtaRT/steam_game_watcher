@@ -3,17 +3,22 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "type": "module",
   "scripts": {
     "start": "node dist/bot.js",
     "build": "tsc",
-    "dev": "nodemon"
+    "dev": "tsx watch src/index.ts"
   },
   "dependencies": {
     "@types/node": "^22.5.5",
+    "axios": "^1.7.7",
+    "axios-cookiejar-support": "^5.0.2",
+    "cheerio": "^1.0.0",
     "dotenv": "^16.4.5",
-    "nodemon": "^3.1.4",
     "telegraf": "^4.16.3",
+    "tough-cookie": "^5.0.0",
     "ts-node": "^10.9.2",
+    "tsx": "^4.19.1",
     "typescript": "^5.6.2"
   }
 }

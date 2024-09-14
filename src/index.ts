@@ -1,16 +1,28 @@
-import { Telegraf } from 'telegraf';
-import * as dotenv from 'dotenv';
+import * as dotenv from "dotenv";
+import { createBot } from "./Bot/Bot";
+import { getDB } from "./Database/Database";
+import { GameRecordType } from "./Database/types";
+import { CookieJar } from "tough-cookie";
+import { wrapper } from "axios-cookiejar-support";
+import axios from "axios";
+import { steamWatcher } from "./Watcher/SteamWatcher";
 
-dotenv.config()
+dotenv.config();
 
-const botToken =  process.env.TOKEN ?? '';
-console.log('botToken ',botToken)
-const bot = new Telegraf(botToken);
+// ------------------------------ Bot
 
-bot.start((ctx) => ctx.reply('Бот запущен!'));
+const bot = createBot();
 
-bot.command('help', (ctx) => ctx.reply('помощи нет'))
+// ------------------------------ Database
 
-bot.launch();
+const db = getDB<GameRecordType>("db.json");
 
-console.log('Бот запущен и готов к работе!');
+// ------------------------------ Axios
+
+const jar = new CookieJar();
+const client = wrapper(axios.create({ jar }));
+
+// ------------------------------ Watch
+await steamWatcher(db, bot, client);
+
+console.log("Started");
