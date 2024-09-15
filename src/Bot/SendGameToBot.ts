@@ -1,6 +1,6 @@
 import { GameRecordType } from "../Database/types";
 import { Telegraf } from "telegraf";
-import { sendError } from "./SendError";
+import { sendError } from "./SendError.js";
 
 export const sendGameToBot = async (game: GameRecordType, bot: Telegraf) => {
   try {

@@ -33,7 +33,7 @@ export const getDB = <T>(path: string, initialValue?: DBRecordType<T>) => {
       readDb();
     },
     write: () => {
-      console.log("save");
+      console.log("save start");
       fs.writeFileSync(path, "");
 
       Object.keys(db).forEach((key) => {
@@ -41,6 +41,7 @@ export const getDB = <T>(path: string, initialValue?: DBRecordType<T>) => {
         const jsonString = JSON.stringify({ [key]: value });
         fs.appendFileSync(path, jsonString + "\n");
       });
+      console.log("write > ", Object.keys(db).length + " strings");
     },
     where: (condition: (entity: T) => boolean) => {
       const response: T[] = [];

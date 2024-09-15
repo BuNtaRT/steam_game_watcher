@@ -1,11 +1,11 @@
 import * as dotenv from "dotenv";
-import { createBot } from "./Bot/Bot";
-import { getDB } from "./Database/Database";
+import { getDB } from "./Database/Database.js";
 import { GameRecordType } from "./Database/types";
 import { CookieJar } from "tough-cookie";
 import { wrapper } from "axios-cookiejar-support";
 import axios from "axios";
-import { steamWatcher } from "./Watcher/SteamWatcher";
+import { steamWatcher } from "./Watcher/SteamWatcher.js";
+import { createBot } from "./Bot/Bot.js";
 
 dotenv.config();
 
@@ -15,7 +15,7 @@ const bot = createBot();
 
 // ------------------------------ Database
 
-const db = getDB<GameRecordType>("db.json");
+const db = getDB<GameRecordType>("dbon");
 
 // ------------------------------ Axios
 

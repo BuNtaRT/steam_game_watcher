@@ -1,4 +1,4 @@
-import { getDB } from "./Database";
+import { getDB } from "./Database.js";
 
 export type GameRecordType = {
   id: number;
