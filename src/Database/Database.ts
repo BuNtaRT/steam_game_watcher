@@ -33,7 +33,7 @@ export const getDB = <T>(path: string, initialValue?: DBRecordType<T>) => {
       readDb();
     },
     write: () => {
-      console.log("save ");
+      console.log("save");
       fs.writeFileSync(path, "");
 
       Object.keys(db).forEach((key) => {
