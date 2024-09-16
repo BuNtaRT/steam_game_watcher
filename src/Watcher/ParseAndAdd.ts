@@ -8,19 +8,13 @@ export const parseAndAddPage = (
 ) => {
   const page = cheerio.load(pageString);
 
-  page(".search_result_row").each((index, element) => {
-    const link = page(element).attr("href") ?? "empty";
-    const appId = Number(page(element).data("ds-appid"));
-    const priceText = page(element).find(".discount_final_price").text();
+  const entities = page(".search_result_row");
+  console.log(entities.length + " hits");
 
-    const price = parseFloat(priceText.replace(/[^\d]/g, ""));
+  entities.each((index, element) => {
+    const appId = Number(page(element).data("ds-appid"));
 
     const id = isNaN(appId) ? 0 : appId;
-    db.createOrUpdate(id, {
-      id,
-      link: link,
-      price: price,
-      isOnMarket: iterationId,
-    });
+    db.createOrUpdate(id, iterationId);
   });
 };

@@ -2,9 +2,10 @@ import { Telegraf } from "telegraf";
 import { DBType, GameRecordType } from "../Database/types";
 import { AxiosInstance } from "axios";
 import { delay } from "../utils/Delay.js";
-import { getAllGames } from "./GetAllGames.js";
 import { sendGameToBot } from "../Bot/SendGameToBot.js";
 import { sendError } from "../Bot/SendError.js";
+import { getFullGame } from "./GetFullGame.js";
+import { getAllGames } from "./GetAllGames.js";
 
 const CRITICAL = Number(process.env.CRITICAL_COUNT ?? 1);
 const COOLDOWN = Number(process.env.COOLDOWN_MIN ?? 10);
@@ -27,15 +28,20 @@ export const steamWatcher = async (
       await getAllGames(client, db, timestampIteration);
 
       const deletedGames = db.where(
-        ({ isOnMarket }: GameRecordType) => timestampIteration !== isOnMarket,
+        (gameUpdateTime) => gameUpdateTime !== timestampIteration,
       );
       if (deletedGames.length) {
         for (const game of deletedGames) {
           await needExit(bot);
 
-          const complete = await sendGameToBot(game, bot);
-          if (complete) db.remove(game.id);
-          else errorCount += 1;
+          try {
+            const fullGame = await getFullGame(client, game);
+            await sendGameToBot(fullGame, bot);
+            db.remove(game);
+          } catch (e) {
+            errorCount += 1;
+            await sendError(e, bot);
+          }
         }
       }
 

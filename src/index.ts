@@ -15,7 +15,7 @@ const bot = createBot();
 
 // ------------------------------ Database
 
-const db = getDB<GameRecordType>("dbon");
+const db = getDB<GameRecordType>("dbs.json");
 
 // ------------------------------ Axios
 
