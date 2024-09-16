@@ -18,11 +18,16 @@ export const getAllGames = async (
 
   do {
     await delay(TICK * 1000);
-    const page = await getNexPageData(client, startIndex);
-    parseAndAddPage(page.content, timestampIteration, db);
+    try {
+      const page = await getNexPageData(client, startIndex);
+      parseAndAddPage(page.content, timestampIteration, db);
 
-    totalCount = page.total;
-    startIndex += PAGE_SIZE;
+      totalCount = page.total;
+      startIndex += PAGE_SIZE;
+    } catch (e) {
+      console.error("ошибка ", e);
+    }
+
     console.log("прогресс --- ", startIndex, " из ", totalCount);
   } while (startIndex < totalCount);
 };
