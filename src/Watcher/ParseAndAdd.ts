@@ -9,7 +9,7 @@ export const parseAndAddPage = (
   const page = cheerio.load(pageString);
 
   const entities = page(".search_result_row");
-  console.log(entities.length + " hits");
+  console.log(entities.length + " вхождений");
 
   entities.each((index, element) => {
     const appId = Number(page(element).data("ds-appid"));
@@ -17,4 +17,5 @@ export const parseAndAddPage = (
     const id = isNaN(appId) ? 0 : appId;
     db.createOrUpdate(id, iterationId);
   });
+  console.log("текущая длина -- ", db.length());
 };

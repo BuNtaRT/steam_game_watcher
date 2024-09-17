@@ -15,8 +15,7 @@ const bot = createBot();
 
 // ------------------------------ Database
 
-const db = getDB<GameRecordType>("dbs.json");
-
+const db = getDB<GameRecordType>("db/db.json");
 // ------------------------------ Axios
 
 const jar = new CookieJar();

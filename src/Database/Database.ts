@@ -16,6 +16,10 @@ export const getDB = <T>(path: string, initialValue?: DBRecordType<T>) => {
         }
       } else if (initialValue) db = initialValue;
       console.log(`read < ${fileContent.length} lines`);
+    } else {
+      fs.mkdir(path.split("/")[0], () => {
+        fs.writeFileSync(path, "");
+      });
     }
   };
   readDb();
@@ -51,6 +55,9 @@ export const getDB = <T>(path: string, initialValue?: DBRecordType<T>) => {
       });
 
       return response;
+    },
+    length: () => {
+      return Object.keys(db).length;
     },
   };
 };
