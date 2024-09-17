@@ -9,6 +9,10 @@ import { createBot } from "./Bot/Bot.js";
 
 dotenv.config();
 
+export const CRITICAL = Number(process.env.CRITICAL_COUNT ?? 1);
+export const COOLDOWN = Number(process.env.COOLDOWN_MIN ?? 10);
+export const TICK = Number(process.env.UPDATE_TIC ?? 3);
+
 // ------------------------------ Bot
 
 const bot = createBot();

@@ -6,9 +6,8 @@ import { sendGameToBot } from "../Bot/SendGameToBot.js";
 import { sendError } from "../Bot/SendError.js";
 import { getFullGame } from "./GetFullGame.js";
 import { getAllGames } from "./GetAllGames.js";
+import { COOLDOWN, CRITICAL } from "../index.js";
 
-const CRITICAL = Number(process.env.CRITICAL_COUNT ?? 1);
-const COOLDOWN = Number(process.env.COOLDOWN_MIN ?? 10);
 let errorCount = 0;
 
 export const steamWatcher = async (
@@ -16,6 +15,7 @@ export const steamWatcher = async (
   bot: Telegraf,
   client: AxiosInstance,
 ) => {
+  console.log(CRITICAL);
   while (true) {
     try {
       // ------------------------------ Инициализация (автоматическое проставление кук)

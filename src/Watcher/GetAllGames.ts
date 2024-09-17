@@ -2,9 +2,9 @@ import { AxiosInstance } from "axios";
 import { DBType, GameRecordType } from "../Database/types";
 import { delay } from "../utils/Delay.js";
 import { parseAndAddPage } from "./ParseAndAdd.js";
+import { TICK } from "../index.js";
 
 const PAGE_SIZE = 100;
-const TICK = Number(process.env.UPDATE_TIC ?? 3);
 
 // ------------------------------ Получение всех игр
 
